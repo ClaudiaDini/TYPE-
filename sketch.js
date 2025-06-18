@@ -116,6 +116,10 @@ function disegnaParola(parola) {
   pop();
 }
 
+function mousePressed() {
+  parola = componiParola();
+}
+
 /**
  *
  * @param {number} x
