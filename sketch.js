@@ -1,16 +1,21 @@
 /** @typedef {import("./p5/types/index").Image} Image */
+/** @typedef {[Image, Image]} Lettera */
+/** @typedef {Lettera[]} Parola */
 
 //let img_1;
 //let img_2;
 //let A_3;
 //let A_4;
-let percentuale = 0.5 * outputVolume(100);
+// let percentuale = 0.5;
 let gap = 10;
 
 /** @type {Object.<string, Image[]>} */
 let lettere = {};
 
-let parola = ["S", "I", "N", "A", "P", "S", "I"];
+/** @type {Parola} */
+let parola;
+
+// let parola = ["S", "I", "N", "A", "P", "S", "I"];
 
 function preload() {
   //img_2 = loadImage("A/A-1-18.svg");
@@ -45,61 +50,69 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#222222");
-  noLoop();
+  // frameRate(1);
   noStroke();
 
   Object.values(lettere).forEach((l) =>
     l.forEach((image) => image.resize(0, 100))
   );
+
+  parola = componiParola();
 }
 
 function draw() {
   background(0);
-  disegnaParola();
+  disegnaParola(parola);
 }
 
-function disegnaParola() {
+/**
+ * @returns {Parola}
+ */
+function componiParola() {
   let immagini_S = getTwoRandomElements(lettere["S"]);
-  let s_len = immagini_S[0].width / 2 + immagini_S[1].width / 2;
   let immagini_I = getTwoRandomElements(lettere["I"]);
-  let i_len = immagini_I[0].width / 2 + immagini_I[1].width / 2;
   let immagini_N = getTwoRandomElements(lettere["N"]);
-  let n_len = immagini_N[0].width / 2 + immagini_N[1].width / 2;
   let immagini_A = getTwoRandomElements(lettere["A"]);
-  let a_len = immagini_A[0].width / 2 + immagini_A[1].width / 2;
   let immagini_P = getTwoRandomElements(lettere["P"]);
-  let p_len = immagini_P[0].width / 2 + immagini_P[1].width / 2;
   let immagini_S2 = getTwoRandomElements(lettere["S"]);
-  let s2_len = immagini_S2[0].width / 2 + immagini_S2[1].width / 2;
   let immagini_I2 = getTwoRandomElements(lettere["I"]);
-  let i2_len = immagini_I2[0].width / 2 + immagini_I2[1].width / 2;
+  return [
+    immagini_S,
+    immagini_I,
+    immagini_N,
+    immagini_A,
+    immagini_P,
+    immagini_S2,
+    immagini_I2,
+  ];
+}
 
-  let len_totale =
-    s_len + i_len + n_len + a_len + p_len + s2_len + i2_len + gap * 6;
-  let height_totale = immagini_S[0].height;
+/**
+ * @param {Parola} parola
+ */
+function disegnaParola(parola) {
+  let percentuale1 = map(mouseX, 0, width, 0, 1, true);
+  let percentuale2 = map(mouseX, 0, width, 1, 0, true);
 
-  let x = (width - len_totale) / 2;
+  let width_totale = (parola.length - 1) * gap;
+  for (let coppia of parola) {
+    width_totale += coppia[0].width / 2 + coppia[1].width / 2;
+  }
+
+  let height_totale = parola[0][0].height;
+
+  let x = (width - width_totale) / 2;
   let y = (height - height_totale) / 2;
 
   // rect(x, y, len_totale, height_totale);
 
   push();
   translate(x, y);
-  lettera(0, 0, immagini_S, 0.5);
-  translate(s_len + gap, 0);
-  lettera(0, 0, immagini_I, 0.5);
-  translate(i_len + gap, 0);
-  lettera(0, 0, immagini_N, 0.5);
-  translate(n_len + gap, 0);
-  lettera(0, 0, immagini_A, 0.5);
-  translate(a_len + gap, 0);
-  lettera(0, 0, immagini_P, percentuale);
-  translate(p_len + gap, 0);
-  lettera(0, 0, immagini_S2, percentuale);
-  translate(s2_len + gap, 0);
-  lettera(0, 0, immagini_I2, percentuale);
-  translate(i2_len + gap, 0);
-
+  for (let i = 0; i < parola.length; i++) {
+    let coppia = parola[i];
+    lettera(0, 0, coppia, i % 2 == 0 ? percentuale1 : percentuale2);
+    translate(coppia[0].width / 2 + coppia[1].width / 2 + gap, 0);
+  }
   pop();
 }
 
