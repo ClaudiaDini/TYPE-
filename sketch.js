@@ -115,8 +115,11 @@ function disegnaParola(parola) {
 
   let height_totale = parola[0][0].height;
 
-  let x = (width - width_totale) / 2;
-  let y = (height - height_totale) / 2;
+  let x = -width_totale / 2;
+  let y = -height_totale / 2;
+
+  translate(width / 2, height / 2);
+  scale(width / width_totale / 1.5);
 
   // rect(x, y, len_totale, height_totale);
 
