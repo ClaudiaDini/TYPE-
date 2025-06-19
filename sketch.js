@@ -132,7 +132,12 @@ function disegnaParola(parola) {
 
 function mousePressed() {
   parola = componiParola();
-  saveGif("SINAPSI.gif", 5);
+}
+
+function keyPressed() {
+  if (key == "s") {
+    saveGif("SINAPSI.gif", 5);
+  }
 }
 
 /**
