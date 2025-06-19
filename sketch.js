@@ -15,6 +15,7 @@ let lettere = {};
 /** @type {Parola} */
 let parola;
 
+let mic;
 // let parola = ["S", "I", "N", "A", "P", "S", "I"];
 
 function preload() {
@@ -52,6 +53,9 @@ function setup() {
   background("#222222");
   // frameRate(1);
   noStroke();
+
+  mic = new p5.AudioIn();
+  mic.start();
 
   Object.values(lettere).forEach((l) =>
     l.forEach((image) => image.resize(0, 100))
@@ -91,8 +95,11 @@ function componiParola() {
  * @param {Parola} parola
  */
 function disegnaParola(parola) {
-  let percentuale1 = map(mouseX, 0, width, 0, 1, true);
+  let level = mic.getLevel() * 300;
+  let percentuale3 = map(level, 0, 1, 0, 1, true);
+  let percentuale1 = map(level, 0, 1, 1, 0, true);
   let percentuale2 = map(mouseX, 0, width, 1, 0, true);
+  let percentuale4 = map(mouseX, 0, 1, 0, 1, true);
 
   let width_totale = (parola.length - 1) * gap;
   for (let coppia of parola) {
@@ -110,7 +117,7 @@ function disegnaParola(parola) {
   translate(x, y);
   for (let i = 0; i < parola.length; i++) {
     let coppia = parola[i];
-    lettera(0, 0, coppia, i % 2 == 0 ? percentuale1 : percentuale2);
+    lettera(0, 0, coppia, i % 2 == 0 ? percentuale1 : percentuale3);
     translate(coppia[0].width / 2 + coppia[1].width / 2 + gap, 0);
   }
   pop();
@@ -217,4 +224,8 @@ function getTwoRandomElements(arr) {
   }
   let shuffled = shuffle(arr); // p5.js's built-in shuffle function
   return [shuffled[0], shuffled[1]];
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
