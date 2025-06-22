@@ -15,7 +15,7 @@ let lettere = {};
 /** @type {Parola} */
 let parola;
 
-let mic;
+//let mic;
 // let parola = ["S", "I", "N", "A", "P", "S", "I"];
 
 function preload() {
@@ -54,8 +54,8 @@ function setup() {
   // frameRate(1);
   noStroke();
 
-  mic = new p5.AudioIn();
-  mic.start();
+  //mic = new p5.AudioIn();
+  //mic.start();
 
   Object.values(lettere).forEach((l) =>
     l.forEach((image) => image.resize(0, 100))
