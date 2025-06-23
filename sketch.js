@@ -9,7 +9,7 @@ let lettere = {};
 
 /** @type {Parola} */
 let parola;
-
+let mic;
 function preload() {
   lettere = {
     S: [
@@ -39,9 +39,11 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#222222");
-  frameRate(100);
+  //frameRate(100);
   noStroke();
 
+  mic = new p5.AudioIn();
+  mic.start();
   Object.values(lettere).forEach((l) =>
     l.forEach((image) => image.resize(0, 100))
   );
@@ -80,8 +82,8 @@ function componiParola() {
  * @param {Parola} parola
  */
 function disegnaParola(parola) {
-  let percentuale1 = noise(frameCount * 0.01);
-  let percentuale2 = 1 - percentuale1;
+  //let percentuale1 = noise(frameCount * 0.01);
+  //let percentuale2 = 1 - percentuale1;
 
   let width_totale = (parola.length - 1) * gap;
   for (let coppia of parola) {
@@ -90,6 +92,12 @@ function disegnaParola(parola) {
 
   let height_totale = parola[0][0].height;
 
+  let level = mic.getLevel() * 250;
+  //let percentuale1 = map(level, 0, 1, 1, 0, true);
+  //let percentuale2 = map(level, 0, 1, 0, 1, true);
+
+  let percentuale1 = map(mouseX, 0, width, 1, 0, true);
+  let percentuale2 = map(mouseX, 0, width, 0, 1, true);
   let x = -width_totale / 2;
   let y = -height_totale / 2;
 
