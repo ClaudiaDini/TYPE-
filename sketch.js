@@ -19,10 +19,6 @@ let parola;
 // let parola = ["S", "I", "N", "A", "P", "S", "I"];
 
 function preload() {
-  //img_2 = loadImage("A/A-1-18.svg");
-  //img_1 = loadImage("A/A-2-19.svg");
-  //A_3 = loadImage("A/A-3-23.svg");
-  //A_4 = loadImage("A/A-4-22.svg");
   lettere = {
     S: [
       loadImage("S/S-1.svg"),
@@ -51,7 +47,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#222222");
-  // frameRate(1);
+  frameRate(10);
   noStroke();
 
   //mic = new p5.AudioIn();
