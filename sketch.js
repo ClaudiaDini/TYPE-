@@ -2,11 +2,6 @@
 /** @typedef {[Image, Image]} Lettera */
 /** @typedef {Lettera[]} Parola */
 
-//let img_1;
-//let img_2;
-//let A_3;
-//let A_4;
-// let percentuale = 0.5;
 let gap = 10;
 
 /** @type {Object.<string, Image[]>} */
@@ -14,9 +9,6 @@ let lettere = {};
 
 /** @type {Parola} */
 let parola;
-
-//let mic;
-// let parola = ["S", "I", "N", "A", "P", "S", "I"];
 
 function preload() {
   lettere = {
@@ -47,11 +39,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background("#222222");
-  frameRate(10);
+  frameRate(100);
   noStroke();
-
-  //mic = new p5.AudioIn();
-  //mic.start();
 
   Object.values(lettere).forEach((l) =>
     l.forEach((image) => image.resize(0, 100))
@@ -91,18 +80,8 @@ function componiParola() {
  * @param {Parola} parola
  */
 function disegnaParola(parola) {
-  // let level = mic.getLevel() * 300;
   let percentuale1 = noise(frameCount * 0.01);
   let percentuale2 = 1 - percentuale1;
-
-  // Variante mouse
-  // let percentuale1 = map(mouseX, 0, width, 1, 0, true);
-  // let percentuale2 = map(mouseX, 0, width, 0, 1, true);
-
-  // Variante microfono
-  // let level = mic.getLevel() * 300;
-  // let percentuale1 = map(level, 0, 1, 1, 0, true);
-  // let percentuale2 = map(level, 0, 1, 0, 1, true);
 
   let width_totale = (parola.length - 1) * gap;
   for (let coppia of parola) {
@@ -116,8 +95,6 @@ function disegnaParola(parola) {
 
   translate(width / 2, height / 2);
   scale(width / width_totale / 1.5);
-
-  // rect(x, y, len_totale, height_totale);
 
   push();
   translate(x, y);
@@ -149,9 +126,6 @@ function keyPressed() {
 function lettera(x, y, coppia, percentuale) {
   let img_sx = coppia[0];
   let img_dx = coppia[1];
-
-  // let larghezza_1 = map(percentuale, 0, 1, 0, img_sx.width);
-  // let larghezza_2 = img_dx.width - larghezza_1;
 
   let cx = x + img_sx.width / 2;
   let cy = y + img_sx.height / 2;
@@ -186,44 +160,6 @@ function lettera(x, y, coppia, percentuale) {
   pop();
 
   pop();
-
-  // //immagine sinistra
-  // push();
-  // imageMode(CENTER);
-  // translate(x + img_sx.width / 2, y + img_sx.height / 2);
-
-  // push();
-
-  // beginClip();
-  // rect(-img_sx.width / 2, -img_sx.height / 2, larghezza_1, img_sx.height);
-  // endClip();
-
-  // image(img_sx, 0, 0);
-
-  // pop();
-
-  // pop();
-
-  // //immagine destra
-  // push();
-  // imageMode(CENTER);
-  // translate(x + img_dx.width / 2, y + img_dx.height / 2);
-
-  // push();
-
-  // beginClip();
-  // rect(
-  //   -img_dx.width / 2 + larghezza_1,
-  //   -img_dx.height / 2,
-  //   larghezza_2,
-  //   img_dx.height
-  // );
-  // endClip();
-
-  // image(img_dx, 0, 0);
-
-  // pop();
-  // pop();
 }
 
 /**
