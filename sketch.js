@@ -42,8 +42,8 @@ function setup() {
   //frameRate(100);
   noStroke();
 
-  mic = new p5.AudioIn();
-  mic.start();
+  //mic = new p5.AudioIn();
+  //mic.start();
   Object.values(lettere).forEach((l) =>
     l.forEach((image) => image.resize(0, 100))
   );
@@ -92,7 +92,7 @@ function disegnaParola(parola) {
 
   let height_totale = parola[0][0].height;
 
-  let level = mic.getLevel() * 250;
+  //let level = mic.getLevel() * 250;
   //let percentuale1 = map(level, 0, 1, 1, 0, true);
   //let percentuale2 = map(level, 0, 1, 0, 1, true);
 
